@@ -3,9 +3,11 @@ package me.pranavverma.advancedtech;
 
 import java.util.logging.Level;
 
+import io.github.thebusybiscuit.slimefun4.core.attributes.Radioactivity;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 
 // Import All Custom Items
+import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
 import me.pranavverma.advancedtech.items.firecake.FireCake;
 import me.pranavverma.advancedtech.items.diggers.handheld_digger_1;
 
@@ -78,11 +80,11 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
 
         //Defining the Items
         SlimefunItemStack handheld_digger_1_ = new SlimefunItemStack("HANDHELD_DIGGER_1", Material.NETHERITE_PICKAXE, "&4Basic Handheld Power Digger", "&cAllows you to mine a 4x4 Area.");
-        SlimefunItemStack fire_cake = new SlimefunItemStack("FIRE_CAKE", Material.CAKE, "&aFire Cake", "", "&7This is awesome");
+        SlimefunItemStack fire_cake = new SlimefunItemStack("FIRE_CAKE", Material.CAKE, "&aFire Cake", "Be Careful...", LoreBuilder.radioactive(Radioactivity.LOW));
 
         //Recipes
         ItemStack[] handheld_digger_1_recipe = { SlimefunItems.BATTERY, SlimefunItems.ALUMINUM_BRONZE_INGOT, SlimefunItems.BATTERY, SlimefunItems.EXPLOSIVE_PICKAXE, SlimefunItems.POWER_CRYSTAL, SlimefunItems.EXPLOSIVE_PICKAXE, SlimefunItems.BATTERY, SlimefunItems.ALUMINUM_BRONZE_INGOT, SlimefunItems.BATTERY };
-        ItemStack[] fire_cake_recipe = { null, null, null, null, new ItemStack(Material.CAKE), null, null, new ItemStack(Material.FLINT_AND_STEEL), null };
+        ItemStack[] fire_cake_recipe = { null, SlimefunItems.TINY_URANIUM, null, null, new ItemStack(Material.CAKE), null, null, new ItemStack(Material.FLINT_AND_STEEL), null };
 
         //Registering the Items
 

@@ -1,7 +1,6 @@
-package me.pranavverma.advancedtech.items;
+package me.pranavverma.advancedtech.items.diggers.lib.advanced;
 
-import io.github.bakedlibs.dough.protection.Interaction;
-import io.github.thebusybiscuit.slimefun4.api.events.ExplosiveToolBreakBlocksEvent;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemSetting;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
@@ -25,24 +24,21 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.inventory.ItemStack;
 
-import javax.annotation.Nonnull;
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExplosiveTool extends SimpleSlimefunItem<ToolUseHandler> implements NotPlaceable, DamageableItem {
+
+public class ExplosiveTool5x5 extends SimpleSlimefunItem<ToolUseHandler> implements NotPlaceable, DamageableItem {
 
     private final ItemSetting<Boolean> damageOnUse = new ItemSetting<>(this, "damage-on-use", true);
     private final ItemSetting<Boolean> callExplosionEvent = new ItemSetting<>(this, "call-explosion-event", false);
 
-    @ParametersAreNonnullByDefault
-    public ExplosiveTool(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+    public ExplosiveTool5x5(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
 
         addItemSetting(damageOnUse, callExplosionEvent);
     }
 
-    @Nonnull
     @Override
     public ToolUseHandler getItemHandler() {
         return (e, tool, fortune, drops) -> {
@@ -60,11 +56,10 @@ public class ExplosiveTool extends SimpleSlimefunItem<ToolUseHandler> implements
         };
     }
 
-    @ParametersAreNonnullByDefault
     private void breakBlocks(BlockBreakEvent e, Player p, ItemStack item, Block b, List<Block> blocks, List<ItemStack> drops) {
         List<Block> blocksToDestroy = new ArrayList<>();
 
-        if (callExplosionEvent.getValue().booleanValue()) {
+        if (callExplosionEvent.getValue()) {
             BlockExplodeEvent blockExplodeEvent = new BlockExplodeEvent(b, blocks, 0);
             Bukkit.getServer().getPluginManager().callEvent(blockExplodeEvent);
 
@@ -83,7 +78,7 @@ public class ExplosiveTool extends SimpleSlimefunItem<ToolUseHandler> implements
             }
         }
 
-        ExplosiveToolBreakBlocksEvent event = new ExplosiveToolBreakBlocksEvent(p, b, blocksToDestroy, item, this);
+        ExplosiveToolBreakBlocksEvent5x5 event = new ExplosiveToolBreakBlocksEvent5x5(p, b, blocksToDestroy, item, this);
         Bukkit.getServer().getPluginManager().callEvent(event);
 
         if (!event.isCancelled()) {
@@ -93,13 +88,12 @@ public class ExplosiveTool extends SimpleSlimefunItem<ToolUseHandler> implements
         }
     }
 
-    @Nonnull
-    private List<Block> findBlocks(@Nonnull Block b) {
-        List<Block> blocks = new ArrayList<>(26);
+    private List<Block> findBlocks(Block b) {
+        List<Block> blocks = new ArrayList<>(121);
 
-        for (int x = -1; x <= 1; x++) {
-            for (int y = -1; y <= 1; y++) {
-                for (int z = -1; z <= 1; z++) {
+        for (int x = -2; x <= 2; x++) {
+            for (int y = -2; y <= 2; y++) {
+                for (int z = -2; z <= 2; z++) {
                     // We can skip the center block since that will break as usual
                     if (x == 0 && y == 0 && z == 0) {
                         continue;
@@ -118,7 +112,7 @@ public class ExplosiveTool extends SimpleSlimefunItem<ToolUseHandler> implements
         return damageOnUse.getValue();
     }
 
-    protected boolean canBreak(@Nonnull Player p, @Nonnull Block b) {
+    private boolean canBreak(Player p, Block b) {
         if (b.isEmpty() || b.isLiquid()) {
             return false;
         } else if (SlimefunTag.UNBREAKABLE_MATERIALS.isTagged(b.getType())) {
@@ -132,7 +126,6 @@ public class ExplosiveTool extends SimpleSlimefunItem<ToolUseHandler> implements
         }
     }
 
-    @ParametersAreNonnullByDefault
     private void breakBlock(BlockBreakEvent e, Player p, ItemStack item, Block b, List<ItemStack> drops) {
         Slimefun.getProtectionManager().logAction(p, b, Interaction.BREAK_BLOCK);
         Material material = b.getType();
@@ -141,20 +134,9 @@ public class ExplosiveTool extends SimpleSlimefunItem<ToolUseHandler> implements
         SlimefunItem sfItem = BlockStorage.check(b);
 
         if (sfItem != null && !sfItem.useVanillaBlockBreaking()) {
-            /*
-             * Fixes #2989
-             * We create a dummy here to pass onto the BlockBreakHandler.
-             * This will set the correct block context.
-             */
             BlockBreakEvent dummyEvent = new BlockBreakEvent(b, e.getPlayer());
-
-            /*
-             * Fixes #3036 and handling in general.
-             * Call the BlockBreakHandler if the block has one to allow for proper handling.
-             */
             sfItem.callItemHandler(BlockBreakHandler.class, handler -> handler.onPlayerBreak(dummyEvent, item, drops));
 
-            // Make sure the event wasn't cancelled by the BlockBreakHandler.
             if (!dummyEvent.isCancelled()) {
                 drops.addAll(sfItem.getDrops(p));
                 b.setType(Material.AIR);
@@ -166,5 +148,4 @@ public class ExplosiveTool extends SimpleSlimefunItem<ToolUseHandler> implements
 
         damageItem(p, item);
     }
-
 }

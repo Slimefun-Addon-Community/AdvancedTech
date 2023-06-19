@@ -1,66 +1,100 @@
 package me.pranavverma.advancedtech;
 
+
+import java.util.logging.Level;
+
+import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
+
+// Import All Custom Items
+import me.pranavverma.advancedtech.items.firecake.FireCake;
+import me.pranavverma.advancedtech.items.diggers.handheld_digger_1;
+
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
+
+import org.bukkit.Bukkit;
+
+
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
-import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
+import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
+import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
+import io.github.thebusybiscuit.slimefun4.libraries.paperlib.PaperLib;
+import static io.github.thebusybiscuit.slimefun4.core.debug.Debug.log;
 
 public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
 
+    private boolean version_control = true;
+
+    public static boolean TestingMode() {
+        return true;
+    }
+
+
     @Override
     public void onEnable() {
+
+        boolean shouldDisable = false;
+
+        if (version_control) {
+            if (!PaperLib.isPaper()) {
+                log(String.valueOf(Level.SEVERE), "Advanced Tech only supports Paper and its forks (i.e. Airplane and Purpur)");
+                log(String.valueOf(Level.SEVERE), "Please use Paper or a fork of Paper");
+                shouldDisable = true;
+            }
+            if (Slimefun.getMinecraftVersion().isBefore(MinecraftVersion.MINECRAFT_1_19)) {
+                log(String.valueOf(Level.SEVERE), "Advanced Tech is only supported on Minecraft 1.19 and above");
+                log(String.valueOf(Level.SEVERE), "There will be no support for older versions of Minecraft");
+                shouldDisable = false;
+            }
+
+            if (shouldDisable) {
+                Bukkit.getPluginManager().disablePlugin(this);
+                return;
+            }
+        }
+
         // Read something from your config.yml
         Config cfg = new Config(this);
+
 
         if (cfg.getBoolean("options.auto-update")) {
             // You could start an Auto-Updater for example
         }
 
-        /*
-         * 1. Creating a new Category
-         * This Category will use the following ItemStack
-         */
-        ItemStack itemGroupItem = new CustomItemStack(Material.DIAMOND, "&4Advanced Tech", "The Most Advanced Tech in all of SF." +
-                "" +
-                "", "&a> Click to open");
+        //Make a Category
+        ItemStack advanced_tech_define = new CustomItemStack(Material.PLAYER_HEAD, "&4Advanced Tech", "The Most Advanced Tech in all of SF.", "&a> Click to open");
+            // The Category is identified by this key
+            NamespacedKey advanced_tech_id = new NamespacedKey(this, "advanced_tech");
+            //Defines the Category
+            ItemGroup advanced_tech_category = new ItemGroup(advanced_tech_id, advanced_tech_define);
 
-        // Give your Category a unique id.
-        NamespacedKey itemGroupId = new NamespacedKey(this, "addon_category");
-        ItemGroup itemGroup = new ItemGroup(itemGroupId, itemGroupItem);
+        //Defining the Items
+        SlimefunItemStack handheld_digger_1_ = new SlimefunItemStack("HANDHELD_DIGGER_1", Material.NETHERITE_PICKAXE, "&4Basic Handheld Power Digger", "&cAllows you to mine a 4x4 Area.");
+        SlimefunItemStack fire_cake = new SlimefunItemStack("FIRE_CAKE", Material.CAKE, "&aFire Cake", "", "&7This is awesome");
 
-        /*
-         * 2. Create a new SlimefunItemStack
-         * This class has many constructors, it is very important
-         * that you give each item a unique id.
-         */
-        SlimefunItemStack slimefunItem = new SlimefunItemStack("COOL_DIAMOND", Material.DIAMOND, "&4Cool Diamond", "&c+20% Coolness");
+        //Recipes
+        ItemStack[] handheld_digger_1_recipe = { SlimefunItems.BATTERY, SlimefunItems.ALUMINUM_BRONZE_INGOT, SlimefunItems.BATTERY, SlimefunItems.EXPLOSIVE_PICKAXE, SlimefunItems.POWER_CRYSTAL, SlimefunItems.EXPLOSIVE_PICKAXE, SlimefunItems.BATTERY, SlimefunItems.ALUMINUM_BRONZE_INGOT, SlimefunItems.BATTERY };
+        ItemStack[] fire_cake_recipe = { null, null, null, null, new ItemStack(Material.CAKE), null, null, new ItemStack(Material.FLINT_AND_STEEL), null };
 
-        /*
-         * 3. Creating a Recipe
-         * The Recipe is an ItemStack Array with a length of 9.
-         * It represents a Shaped Recipe in a 3x3 crafting grid.
-         * The machine in which this recipe is crafted in is specified
-         * further down as the RecipeType.
-         */
-        ItemStack[] recipe = { new ItemStack(Material.EMERALD), null, new ItemStack(Material.EMERALD), null, new ItemStack(Material.DIAMOND), null, new ItemStack(Material.EMERALD), null, new ItemStack(Material.EMERALD) };
+        //Registering the Items
 
-        /*
-         * 4. Registering the Item
-         * Now you just have to register the item.
-         * RecipeType.ENHANCED_CRAFTING_TABLE refers to the machine in
-         * which this item is crafted in.
-         * Recipe Types from Slimefun itself will automatically add the recipe to that machine.
-         */
-        SlimefunItem item = new SlimefunItem(itemGroup, slimefunItem, RecipeType.ENHANCED_CRAFTING_TABLE, recipe);
-        item.register(this);
+        // 1. Basic Handheld Power Digger (HANDHELD_DIGGER_1)
+        handheld_digger_1 basic_handheld_power_digger = new handheld_digger_1(advanced_tech_category, handheld_digger_1_, RecipeType.ENHANCED_CRAFTING_TABLE, handheld_digger_1_recipe);
+        basic_handheld_power_digger.register(this);
+
+        // 2. Basic Handheld Power Digger (HANDHELD_DIGGER_1)
+        FireCake fire__cake = new FireCake(advanced_tech_category, fire_cake, RecipeType.MAGIC_WORKBENCH, fire_cake_recipe);
+        fire__cake.register(this);
+
+
     }
 
     @Override
@@ -70,7 +104,6 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
 
     @Override
     public String getBugTrackerURL() {
-        // You can return a link to your Bug Tracker instead of null here
         return "https://github.com/PranavVerma-droid/AdvancedTech/issues";
     }
 

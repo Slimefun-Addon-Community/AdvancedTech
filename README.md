@@ -18,4 +18,4 @@ Addon Can Be Downloaded from [Modrinth](https://modrinth.com/plugin/advancedtech
 
 Any Older Versions Than 1.19 might work, but, we will not provide any support for them yet.
 
-For Support on Any Other Versions, Join Our [Discord Server](https://discord.gg/8Wj8xw2) or Contact Me on My [Email](mailto: pranav@verma.net.in)
+For Support on Any Other Versions, Join Our [Discord Server](https://discord.gg/8Wj8xw2) or Contact Me on [My Email](mailto: pranav@verma.net.in)

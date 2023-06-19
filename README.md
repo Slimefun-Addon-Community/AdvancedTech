@@ -1,20 +1,21 @@
-# Slimefun4 Addon
+# Advanced Tech
 This is an example Repository for a generic Slimefun4 Addon.
 In the top left is a button "Use this template", click this to create your own Addon for Slimefun4 using this basic template.
 
-## How to create your own addon.
-This is a template repository that you can use to create your own Slimefun4 Addon.<br>
-We have also written an extensive step-by-step tutorial which you can find here:<br>
-https://github.com/Slimefun/Slimefun4/wiki/Developer-Guide
+## Downloads
+Addon Can Be Downloaded from [Modrinth](https://modrinth.com/plugin/advancedtech) and from [Github Releases](https://github.com/PranavVerma-droid/AdvancedTech/releases)
 
-## Changing some important things
-Navigate to `src/main/java` and rename the package and the .java File to your liking.<br>
-Suggestion: "me.yourname.yourproject" (all lower case) and "ProjectName.java"<br>
-Example: "me.thebusybiscuit.cooladdon" and "CoolAddon.java"
+## Versions & Support
 
-Navigate to `src/main/resources/plugin.yml` and change the "author" and "main" attributes.
-You may also want to change the description to something meaningful.
+| Minecraft Version  | Slimefun Version | Supported          |
+|--------------------|------------------|--------------------|
+| 1.19.4             | DEV 1061         | :white_check_mark: |
+| 1.19.3             | DEV 1061         | Untested           |
+| 1.19.2             | DEV 1061         | Untested           |
+| 1.19.1             | DEV 1061         | Untested           |
+| 1.19               | DEV 1061         | Untested           |
+| Any Older Versions | -                | Not Supported      |
 
-Navigate to `pom.xml` and change the group id to "me.%Your name%" and change the artifact id to the name of your Project.
+Any Older Versions Than 1.19 might work, but, we will not provide any support for them yet.
 
-After that you are good to go, you can now start developing your own Addon for Slimefun4.
+For Support on Any Other Versions, Join Our [Discord Server](https://discord.gg/8Wj8xw2) or Contact Me on My [Email](mailto: pranav@verma.net.in)

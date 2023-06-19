@@ -28,7 +28,9 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
          * 1. Creating a new Category
          * This Category will use the following ItemStack
          */
-        ItemStack itemGroupItem = new CustomItemStack(Material.DIAMOND, "&4Addon Category", "", "&a> Click to open");
+        ItemStack itemGroupItem = new CustomItemStack(Material.DIAMOND, "&4Advanced Tech", "The Most Advanced Tech in all of SF." +
+                "" +
+                "", "&a> Click to open");
 
         // Give your Category a unique id.
         NamespacedKey itemGroupId = new NamespacedKey(this, "addon_category");

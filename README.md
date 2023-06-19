@@ -1,4 +1,4 @@
-# Advanced Tech
+# Advanced Tech (WIP)
 ![AdvancedTech](Images/Logo/logo.gif)  
 
 Introducing AdvancedTech, an immersive add-on for the popular Minecraft plugin Slimefun. This expansion brings advanced technologies and exciting features to enhance your Minecraft experience. Explore a comprehensive tech tree, unlock powerful machinery, automate production, and utilize high-tech tools and gadgets. Engage in research and development, discover new resources, and craft intricate machines. With AdvancedTech, take your Minecraft gameplay to new heights of innovation and exploration.
@@ -26,3 +26,6 @@ Any Older Versions Than 1.19 might work, but, we will not provide any support fo
 For Support on Any Other Versions, Join Our [Discord Server](https://discord.gg/8Wj8xw2) or Contact Me on [My Email](pranav@verma.net.in)
 
 Official Slimefun Discord Server: [https://discord.gg/slimefun](https://discord.gg/slimefun)
+
+# Contributing
+To Contribute to the Project, please read the [Contributing Guidelines](CONTRIBUTING.md)

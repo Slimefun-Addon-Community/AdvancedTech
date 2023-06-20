@@ -37,6 +37,6 @@ public class FireCake extends SlimefunItem implements Radioactive {
 
     @Override
     public Radioactivity getRadioactivity() {
-        return Radioactivity.LOW;
+        return Radioactivity.HIGH;
     }
 }

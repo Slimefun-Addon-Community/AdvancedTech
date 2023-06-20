@@ -3,6 +3,7 @@ package me.pranavverma.advancedtech;
 
 import java.util.logging.Level;
 
+import io.github.thebusybiscuit.slimefun4.api.researches.Research;
 import io.github.thebusybiscuit.slimefun4.core.attributes.Radioactivity;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 
@@ -32,13 +33,16 @@ import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.paperlib.PaperLib;
 import static io.github.thebusybiscuit.slimefun4.core.debug.Debug.log;
+import io.github.bakedlibs.dough.*;
+
+import me.mrCookieSlime.Slimefun.*;
 
 public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
 
     private boolean version_control = true;
 
     public static boolean TestingMode() {
-        return true;
+        return false;
     }
 
     public static class items {
@@ -47,6 +51,7 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
 
     @Override
     public void onEnable() {
+        log(String.valueOf(Level.INFO), "Booting Advanced Tech (Addon to Slimefun) v1.0.0");
 
         boolean shouldDisable = false;
 
@@ -76,8 +81,10 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
             // You could start an Auto-Updater for example
         }
 
+        log(String.valueOf(Level.INFO), "Loading Items...");
+
         //Make a Category
-        ItemStack advanced_tech_define = new CustomItemStack(Material.EMERALD_BLOCK, "&4Advanced Tech", "The Most Advanced Tech in all of SF.", "&a> Click to open");
+        ItemStack advanced_tech_define = new CustomItemStack(SkullItem.fromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGFiZGU4NzQyMWEwMWE4N2FhZDc5YmU0MDFlZmIxNTFkZDc4YjNjZTg0NDA2MDhhYmIyMmE3NTQ1ZWY5ZTRlOCJ9fX0="), "&4Advanced Tech", "The Most Advanced Tech in all of SF.", "&a> Click to open");
             // The Category is identified by this key
             NamespacedKey advanced_tech_id = new NamespacedKey(this, "advanced_tech");
             //Defines the Category
@@ -85,10 +92,11 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
 
         //Defining the Items
         SlimefunItemStack handheld_digger_1_ = new SlimefunItemStack("HANDHELD_DIGGER_1", Material.NETHERITE_PICKAXE, "&4Basic Handheld Power Digger", "&cAllows you to mine a 4 x 4 Area.");
-        SlimefunItemStack handheld_digger_2_ = new SlimefunItemStack("HANDHELD_DIGGER_2", Material.NETHERITE_PICKAXE, "&eAdvanced Handheld Power Digger", "&cAllows you to mine a 5 x 5 Area.");
-        SlimefunItemStack handheld_digger_3_ = new SlimefunItemStack("HANDHELD_DIGGER_3", Material.NETHERITE_PICKAXE, "&dCarbonado Handheld Power Digger", "&cAllows you to mine a 7 x 7 Area.");
-        SlimefunItemStack fire_cake = new SlimefunItemStack("FIRE_CAKE", Material.CAKE, "&aFire Cake", "Be Careful...", LoreBuilder.radioactive(Radioactivity.LOW));
+        SlimefunItemStack handheld_digger_2_ = new SlimefunItemStack("HANDHELD_DIGGER_2", Material.NETHERITE_PICKAXE, "&eAdvanced Handheld Power Digger", "&cAllows you to mine a 5 x 5 Area.", LoreBuilder.radioactive(Radioactivity.LOW));
+        SlimefunItemStack handheld_digger_3_ = new SlimefunItemStack("HANDHELD_DIGGER_3", Material.NETHERITE_PICKAXE, "&dCarbonado Handheld Power Digger", "&cAllows you to mine a 7 x 7 Area.", LoreBuilder.radioactive(Radioactivity.LOW));
+        SlimefunItemStack fire_cake = new SlimefunItemStack("FIRE_CAKE", Material.CAKE, "&aFire Cake", "Be Careful...", LoreBuilder.radioactive(Radioactivity.HIGH));
 
+        log(String.valueOf(Level.INFO), "Loading Recipes...");
         ItemStack[] handheld_digger_1_recipe = { SlimefunItems.BATTERY, SlimefunItems.ALUMINUM_BRONZE_INGOT, SlimefunItems.BATTERY, SlimefunItems.EXPLOSIVE_PICKAXE, SlimefunItems.POWER_CRYSTAL, SlimefunItems.EXPLOSIVE_PICKAXE, SlimefunItems.BATTERY, SlimefunItems.ALUMINUM_BRONZE_INGOT, SlimefunItems.BATTERY };
 
 
@@ -112,6 +120,14 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
 
         handheld_digger_3 carbonado_handheld_power_digger = new handheld_digger_3(advanced_tech_category, handheld_digger_3_, RecipeType.ENHANCED_CRAFTING_TABLE, handheld_digger_3_recipe);
         carbonado_handheld_power_digger.register(this);
+
+        log(String.valueOf(Level.INFO), "Defining Researches....");
+        NamespacedKey diggerKey = new NamespacedKey(this, "advanced_tech_digger");
+        Research diggerResearch = new Research(diggerKey, 12839710, "Welp - Unlock it to find out xD", 65);
+        diggerResearch.addItems(basic_handheld_power_digger, advanced_handheld_power_digger, carbonado_handheld_power_digger);
+        diggerResearch.register();
+
+        log(String.valueOf(Level.INFO), "Boot Finished. Advanced Tech is now ready to use!");
 
 
 

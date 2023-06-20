@@ -3,8 +3,12 @@ package me.pranavverma.advancedtech.items.diggers;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import io.github.thebusybiscuit.slimefun4.core.attributes.Radioactive;
 import me.pranavverma.advancedtech.items.diggers.lib.carbonado.ExplosiveTool7x7;
 import org.bukkit.inventory.ItemStack;
+
+import io.github.thebusybiscuit.slimefun4.core.attributes.Radioactive;
+import io.github.thebusybiscuit.slimefun4.core.attributes.Radioactivity;
 
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;

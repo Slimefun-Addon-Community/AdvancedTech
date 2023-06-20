@@ -11,6 +11,7 @@ import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
 import me.pranavverma.advancedtech.items.firecake.FireCake;
 import me.pranavverma.advancedtech.items.diggers.handheld_digger_1;
 import me.pranavverma.advancedtech.items.diggers.handheld_digger_2;
+import me.pranavverma.advancedtech.items.diggers.handheld_digger_3;
 
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -83,23 +84,22 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
             ItemGroup advanced_tech_category = new ItemGroup(advanced_tech_id, advanced_tech_define);
 
         //Defining the Items
-        SlimefunItemStack handheld_digger_1_ = new SlimefunItemStack("HANDHELD_DIGGER_1", Material.NETHERITE_PICKAXE, "&4Basic Handheld Power Digger", "&cAllows you to mine a 4x4 Area.");
-        SlimefunItemStack handheld_digger_2_ = new SlimefunItemStack("HANDHELD_DIGGER_2", Material.NETHERITE_PICKAXE, "&eAdvanced Handheld Power Digger", "&cAllows you to mine a 5x5 Area.");
+        SlimefunItemStack handheld_digger_1_ = new SlimefunItemStack("HANDHELD_DIGGER_1", Material.NETHERITE_PICKAXE, "&4Basic Handheld Power Digger", "&cAllows you to mine a 4 x 4 Area.");
+        SlimefunItemStack handheld_digger_2_ = new SlimefunItemStack("HANDHELD_DIGGER_2", Material.NETHERITE_PICKAXE, "&eAdvanced Handheld Power Digger", "&cAllows you to mine a 5 x 5 Area.");
+        SlimefunItemStack handheld_digger_3_ = new SlimefunItemStack("HANDHELD_DIGGER_3", Material.NETHERITE_PICKAXE, "&dCarbonado Handheld Power Digger", "&cAllows you to mine a 7 x 7 Area.");
         SlimefunItemStack fire_cake = new SlimefunItemStack("FIRE_CAKE", Material.CAKE, "&aFire Cake", "Be Careful...", LoreBuilder.radioactive(Radioactivity.LOW));
 
-        //Recipes
         ItemStack[] handheld_digger_1_recipe = { SlimefunItems.BATTERY, SlimefunItems.ALUMINUM_BRONZE_INGOT, SlimefunItems.BATTERY, SlimefunItems.EXPLOSIVE_PICKAXE, SlimefunItems.POWER_CRYSTAL, SlimefunItems.EXPLOSIVE_PICKAXE, SlimefunItems.BATTERY, SlimefunItems.ALUMINUM_BRONZE_INGOT, SlimefunItems.BATTERY };
+
+
+
         ItemStack[] fire_cake_recipe = { null, SlimefunItems.TINY_URANIUM, null, null, new ItemStack(Material.CAKE), null, null, new ItemStack(Material.FLINT_AND_STEEL), null };
 
-        //Registering the Items
-
-        // 1. Basic Handheld Power Digger (HANDHELD_DIGGER_1)
-        handheld_digger_1 basic_handheld_power_digger = new handheld_digger_1(advanced_tech_category, handheld_digger_1_, RecipeType.ENHANCED_CRAFTING_TABLE, handheld_digger_1_recipe);
-        basic_handheld_power_digger.register(this);
-
-        // 2. Basic Handheld Power Digger (HANDHELD_DIGGER_1)
         FireCake fire__cake = new FireCake(advanced_tech_category, fire_cake, RecipeType.MAGIC_WORKBENCH, fire_cake_recipe);
         fire__cake.register(this);
+
+        handheld_digger_1 basic_handheld_power_digger = new handheld_digger_1(advanced_tech_category, handheld_digger_1_, RecipeType.ENHANCED_CRAFTING_TABLE, handheld_digger_1_recipe);
+        basic_handheld_power_digger.register(this);
 
 
 
@@ -107,6 +107,12 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
 
         handheld_digger_2 advanced_handheld_power_digger = new handheld_digger_2(advanced_tech_category, handheld_digger_2_, RecipeType.ENHANCED_CRAFTING_TABLE, handheld_digger_2_recipe);
         advanced_handheld_power_digger.register(this);
+
+        ItemStack[] handheld_digger_3_recipe = { SlimefunItems.CARBONADO, SlimefunItems.BLISTERING_INGOT_3, SlimefunItems.CARBONADO, advanced_handheld_power_digger.getItem(), SlimefunItems.POWER_CRYSTAL, advanced_handheld_power_digger.getItem(), SlimefunItems.CARBONADO, SlimefunItems.BLISTERING_INGOT_3, SlimefunItems.CARBONADO };
+
+        handheld_digger_3 carbonado_handheld_power_digger = new handheld_digger_3(advanced_tech_category, handheld_digger_3_, RecipeType.ENHANCED_CRAFTING_TABLE, handheld_digger_3_recipe);
+        carbonado_handheld_power_digger.register(this);
+
 
 
 

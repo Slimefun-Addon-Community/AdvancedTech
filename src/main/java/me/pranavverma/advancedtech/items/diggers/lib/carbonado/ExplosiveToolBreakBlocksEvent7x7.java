@@ -1,4 +1,4 @@
-package me.pranavverma.advancedtech.items.diggers.lib.advanced;
+package me.pranavverma.advancedtech.items.diggers.lib.carbonado;
 
 import org.apache.commons.lang.Validate;
 import org.bukkit.block.Block;
@@ -13,31 +13,29 @@ import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
-
-public class ExplosiveToolBreakBlocksEvent5x5 extends PlayerEvent implements Cancellable {
+public class ExplosiveToolBreakBlocksEvent7x7 extends PlayerEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
 
     private final ItemStack itemInHand;
-    private final ExplosiveTool5x5 explosiveTool5x5;
+    private final ExplosiveTool7x7 explosiveTool7X7;
     private final Block mainBlock;
     private final List<Block> additionalBlocks;
     private boolean cancelled;
 
     @ParametersAreNonnullByDefault
-    public ExplosiveToolBreakBlocksEvent5x5(Player player, Block block, List<Block> blocks, ItemStack item, ExplosiveTool5x5 explosiveTool5x5) {
-
+    public ExplosiveToolBreakBlocksEvent7x7(Player player, Block block, List<Block> blocks, ItemStack item, ExplosiveTool7x7 explosiveTool7X7) {
         super(player);
 
         Validate.notNull(block, "The center block cannot be null!");
         Validate.notNull(blocks, "Blocks cannot be null");
         Validate.notNull(item, "Item cannot be null");
-        Validate.notNull(explosiveTool5x5, "ExplosiveTool5x5 cannot be null");
+        Validate.notNull(explosiveTool7X7, "ExplosiveTool7x7 cannot be null");
 
         this.mainBlock = block;
         this.additionalBlocks = blocks;
         this.itemInHand = item;
-        this.explosiveTool5x5 = explosiveTool5x5;
+        this.explosiveTool7X7 = explosiveTool7X7;
     }
 
     /**
@@ -62,10 +60,14 @@ public class ExplosiveToolBreakBlocksEvent5x5 extends PlayerEvent implements Can
         return this.additionalBlocks;
     }
 
-
+    /**
+     * Gets the {@link ExplosiveTool7x7} which triggered this event
+     *
+     * @return the {@link ExplosiveTool7x7} that was involved
+     */
     @Nonnull
-    public ExplosiveTool5x5 getExplosiveTool() {
-        return this.explosiveTool5x5;
+    public ExplosiveTool7x7 getExplosiveTool() {
+        return this.explosiveTool7X7;
     }
 
     /**

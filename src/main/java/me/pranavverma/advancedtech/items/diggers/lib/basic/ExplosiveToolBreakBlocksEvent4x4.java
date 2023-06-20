@@ -68,12 +68,6 @@ public class ExplosiveToolBreakBlocksEvent4x4 extends PlayerEvent implements Can
     public List<Block> getAdditionalBlocks() {
         return this.additionalBlocks;
     }
-
-    /**
-     * Gets the {@link me.pranavverma.advancedtech.items.diggers.lib.basic.ExplosiveTool4x4} which triggered this event
-     *
-     * @return the {@link me.pranavverma.advancedtech.items.diggers.lib.basic.ExplosiveTool4x4} that was involved
-     */
     @Nonnull
     public me.pranavverma.advancedtech.items.diggers.lib.basic.ExplosiveTool4x4 getExplosiveTool() {
         return this.explosiveTool4x4;

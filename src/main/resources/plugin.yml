@@ -14,7 +14,7 @@ main: me.pranavverma.advancedtech.AdvancedTech
 website: https://web.craftingrealm.tk
 
 ## This value is automatically replaced by the version specified in your pom.xml file.
-## Do not change this.
+## Do not change this.o
 version: ${project.version}
 
 ## This is the minimum minecraft version required to run your plugin.

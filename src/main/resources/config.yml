@@ -1,7 +1,6 @@
-options:
+plugin:
+  enable-plugin: true
   auto-update: true
-
-# This Bottom Section Does NOT work Currently, Working on Implimenting it!
 items:
   enable-diggers: true
   enable-firecake: true

@@ -1,5 +1,23 @@
 package me.pranavverma.advancedtech.items.diggers.lib.carbonado;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Effect;
+import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockExplodeEvent;
+import org.bukkit.inventory.ItemStack;
+
+import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
+import me.pranavverma.advancedtech.items.diggers.lib.carbonado.ExplosiveToolBreakBlocksEvent7x7;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemSetting;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
@@ -11,33 +29,23 @@ import io.github.thebusybiscuit.slimefun4.core.handlers.BlockBreakHandler;
 import io.github.thebusybiscuit.slimefun4.core.handlers.ToolUseHandler;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.implementation.items.SimpleSlimefunItem;
-import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import io.github.thebusybiscuit.slimefun4.utils.tags.SlimefunTag;
-import me.mrCookieSlime.Slimefun.api.BlockStorage;
-import org.bukkit.Bukkit;
-import org.bukkit.Effect;
-import org.bukkit.Material;
-import org.bukkit.Sound;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
-import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockExplodeEvent;
-import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
-import java.util.List;
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 
 public class ExplosiveTool7x7 extends SimpleSlimefunItem<ToolUseHandler> implements NotPlaceable, DamageableItem {
 
     private final ItemSetting<Boolean> damageOnUse = new ItemSetting<>(this, "damage-on-use", true);
     private final ItemSetting<Boolean> callExplosionEvent = new ItemSetting<>(this, "call-explosion-event", false);
 
+    @ParametersAreNonnullByDefault
     public ExplosiveTool7x7(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
 
         addItemSetting(damageOnUse, callExplosionEvent);
     }
 
+    @Nonnull
     @Override
     public ToolUseHandler getItemHandler() {
         return (e, tool, fortune, drops) -> {
@@ -55,10 +63,11 @@ public class ExplosiveTool7x7 extends SimpleSlimefunItem<ToolUseHandler> impleme
         };
     }
 
+    @ParametersAreNonnullByDefault
     private void breakBlocks(BlockBreakEvent e, Player p, ItemStack item, Block b, List<Block> blocks, List<ItemStack> drops) {
         List<Block> blocksToDestroy = new ArrayList<>();
 
-        if (callExplosionEvent.getValue()) {
+        if (callExplosionEvent.getValue().booleanValue()) {
             BlockExplodeEvent blockExplodeEvent = new BlockExplodeEvent(b, blocks, 0);
             Bukkit.getServer().getPluginManager().callEvent(blockExplodeEvent);
 
@@ -87,14 +96,20 @@ public class ExplosiveTool7x7 extends SimpleSlimefunItem<ToolUseHandler> impleme
         }
     }
 
-    private List<Block> findBlocks(Block b) {
-        List<Block> blocks = new ArrayList<>(36);
+    @Nonnull
+    private List<Block> findBlocks(@Nonnull Block b) {
+        List<Block> blocks = new ArrayList<>(49);
 
         int radius = 3;
-        for (int x = -radius; x <= radius; x++) {
-            for (int y = -radius; y <= radius; y++) {
-                for (int z = -radius; z <= radius; z++) {
-                    blocks.add(b.getRelative(x, y, z));
+        int centerX = b.getX();
+        int centerY = b.getY();
+        int centerZ = b.getZ();
+
+        for (int x = centerX - radius; x <= centerX + radius; x++) {
+            for (int y = centerY - radius; y <= centerY + radius; y++) {
+                for (int z = centerZ - radius; z <= centerZ + radius; z++) {
+                    Block block = b.getWorld().getBlockAt(x, y, z);
+                    blocks.add(block);
                 }
             }
         }
@@ -107,7 +122,7 @@ public class ExplosiveTool7x7 extends SimpleSlimefunItem<ToolUseHandler> impleme
         return damageOnUse.getValue();
     }
 
-    private boolean canBreak(Player p, Block b) {
+    protected boolean canBreak(@Nonnull Player p, @Nonnull Block b) {
         if (b.isEmpty() || b.isLiquid()) {
             return false;
         } else if (SlimefunTag.UNBREAKABLE_MATERIALS.isTagged(b.getType())) {
@@ -121,6 +136,7 @@ public class ExplosiveTool7x7 extends SimpleSlimefunItem<ToolUseHandler> impleme
         }
     }
 
+    @ParametersAreNonnullByDefault
     private void breakBlock(BlockBreakEvent e, Player p, ItemStack item, Block b, List<ItemStack> drops) {
         Slimefun.getProtectionManager().logAction(p, b, Interaction.BREAK_BLOCK);
         Material material = b.getType();
@@ -143,4 +159,5 @@ public class ExplosiveTool7x7 extends SimpleSlimefunItem<ToolUseHandler> impleme
 
         damageItem(p, item);
     }
+
 }

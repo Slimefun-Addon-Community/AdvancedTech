@@ -1,5 +1,10 @@
 package me.pranavverma.advancedtech.items.diggers.lib.carbonado;
 
+import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
+
 import org.apache.commons.lang.Validate;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -9,33 +14,39 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.inventory.ItemStack;
 
-import javax.annotation.Nonnull;
-import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.List;
+import me.pranavverma.advancedtech.items.diggers.lib.carbonado.ExplosiveTool7x7;
 
+/**
+ * This {@link Event} is called when an {@link ExplosiveTool7x7} is used to break blocks in a 7x7 area.
+ *
+ * @author GallowsDove
+ *
+ * @see ExplosiveTool7x7
+ *
+ */
 public class ExplosiveToolBreakBlocksEvent7x7 extends PlayerEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
 
     private final ItemStack itemInHand;
-    private final ExplosiveTool7x7 explosiveTool7X7;
+    private final ExplosiveTool7x7 explosiveTool7x7;
     private final Block mainBlock;
     private final List<Block> additionalBlocks;
     private boolean cancelled;
 
     @ParametersAreNonnullByDefault
-    public ExplosiveToolBreakBlocksEvent7x7(Player player, Block block, List<Block> blocks, ItemStack item, ExplosiveTool7x7 explosiveTool7X7) {
+    public ExplosiveToolBreakBlocksEvent7x7(Player player, Block block, List<Block> blocks, ItemStack item, ExplosiveTool7x7 explosiveTool7x7) {
         super(player);
 
         Validate.notNull(block, "The center block cannot be null!");
         Validate.notNull(blocks, "Blocks cannot be null");
         Validate.notNull(item, "Item cannot be null");
-        Validate.notNull(explosiveTool7X7, "ExplosiveTool7x7 cannot be null");
+        Validate.notNull(explosiveTool7x7, "ExplosiveTool7x7 cannot be null");
 
         this.mainBlock = block;
         this.additionalBlocks = blocks;
         this.itemInHand = item;
-        this.explosiveTool7X7 = explosiveTool7X7;
+        this.explosiveTool7x7 = explosiveTool7x7;
     }
 
     /**
@@ -61,17 +72,17 @@ public class ExplosiveToolBreakBlocksEvent7x7 extends PlayerEvent implements Can
     }
 
     /**
-     * Gets the {@link ExplosiveTool7x7} which triggered this event
+     * Gets the {@link ExplosiveTool7x7} which triggered this event.
      *
-     * @return the {@link ExplosiveTool7x7} that was involved
+     * @return The {@link ExplosiveTool7x7} that was involved
      */
     @Nonnull
-    public ExplosiveTool7x7 getExplosiveTool() {
-        return this.explosiveTool7X7;
+    public ExplosiveTool7x7 getExplosiveTool7x7() {
+        return this.explosiveTool7x7;
     }
 
     /**
-     * Gets the {@link ItemStack} of the tool used to destroy this block
+     * Gets the {@link ItemStack} of the tool used to destroy this block.
      *
      * @return The {@link ItemStack} in the hand of the {@link Player}
      */

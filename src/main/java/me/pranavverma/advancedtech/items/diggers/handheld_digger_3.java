@@ -12,30 +12,13 @@ import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-public class handheld_digger_3 extends ExplosiveTool7x7 implements Listener {
+public class handheld_digger_3 extends ExplosiveTool7x7 {
 
     @ParametersAreNonnullByDefault
     public handheld_digger_3(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
     }
 
-    public int getMaxDurability() {
-        return 5 * Material.NETHERITE_PICKAXE.getMaxDurability();
-    }
 
-    @EventHandler
-    public void onItemDamage(PlayerItemDamageEvent event) {
-
-
-            int currentDurability = event.getItem().getDurability();
-            int maxDurability = Material.NETHERITE_PICKAXE.getMaxDurability();
-
-            // Calculate the adjusted durability (5 times the normal durability)
-            int adjustedDurability = (int) (currentDurability / 5.0 * maxDurability);
-
-            // Set the adjusted durability
-            event.getItem().setDurability((short) adjustedDurability);
-
-    }
 
 }

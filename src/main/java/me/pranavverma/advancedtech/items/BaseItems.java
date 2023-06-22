@@ -1,4 +1,4 @@
-package me.pranavverma.advancedtech;
+package me.pranavverma.advancedtech.items;
 
 import io.github.thebusybiscuit.slimefun4.core.attributes.Radioactivity;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.skins.PlayerHead;

@@ -1,44 +1,35 @@
 package me.pranavverma.advancedtech;
 
-import java.util.logging.Level;
-
-import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
-import io.github.thebusybiscuit.slimefun4.api.researches.Research;
-import io.github.thebusybiscuit.slimefun4.core.attributes.Radioactivity;
-import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.SoundGroup;
-import org.bukkit.block.Block;
-import org.bukkit.block.data.BlockData;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.Bukkit;
-import static io.github.thebusybiscuit.slimefun4.core.debug.Debug.log;
-import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
-import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
-import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
+import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
+import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import io.github.thebusybiscuit.slimefun4.api.researches.Research;
+import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
+import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
-import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
-import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
-import io.github.thebusybiscuit.slimefun4.libraries.paperlib.PaperLib;
-import io.github.thebusybiscuit.slimefun4.libraries.dough.skins.PlayerSkin;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.skins.PlayerHead;
-import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
-
-// Import All Custom Items
-import me.pranavverma.advancedtech.BaseItems;
-
-import me.pranavverma.advancedtech.items.firecake.FireCake;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.skins.PlayerSkin;
+import io.github.thebusybiscuit.slimefun4.libraries.paperlib.PaperLib;
+import me.pranavverma.advancedtech.items.BaseItems;
 import me.pranavverma.advancedtech.items.diggers.handheld_digger_1;
 import me.pranavverma.advancedtech.items.diggers.handheld_digger_2;
 import me.pranavverma.advancedtech.items.diggers.handheld_digger_3;
-import me.pranavverma.advancedtech.items.resources.framed_uranium.framed_uranium;
+import me.pranavverma.advancedtech.items.firecake.FireCake;
 import me.pranavverma.advancedtech.items.resources.boosted_carbonado.boosted_carbonado;
-import me.pranavverma.advancedtech.items.resources.command_engine.command_engine;
-import me.pranavverma.advancedtech.items.resources.command_hub.command_hub;
+import me.pranavverma.advancedtech.items.resources.commanders.command_engine.command_engine;
+import me.pranavverma.advancedtech.items.resources.commanders.command_hub.command_hub;
+import me.pranavverma.advancedtech.items.resources.framed_uranium.framed_uranium;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.logging.Level;
+
+import static io.github.thebusybiscuit.slimefun4.core.debug.Debug.log;
 public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
 
     public boolean enable_plugin = true;

@@ -141,4 +141,13 @@
         </dependency>
 
     </dependencies>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub PranavVerma-droid Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/PranavVerma-droid/AdvancedTech</url>
+        </repository>
+    </distributionManagement>
+
 </project>

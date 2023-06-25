@@ -18,7 +18,7 @@ import org.bukkit.inventory.ItemStack;
 
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import me.pranavverma.advancedtech.items.diggers.lib.carbonado.ExplosiveToolBreakBlocksEvent7x7;
-import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
+
 import io.github.thebusybiscuit.slimefun4.api.items.ItemSetting;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
@@ -30,6 +30,8 @@ import io.github.thebusybiscuit.slimefun4.core.handlers.ToolUseHandler;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.implementation.items.SimpleSlimefunItem;
 import io.github.thebusybiscuit.slimefun4.utils.tags.SlimefunTag;
+import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
+
 
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 

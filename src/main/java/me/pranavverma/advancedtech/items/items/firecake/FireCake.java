@@ -1,4 +1,4 @@
-package me.pranavverma.advancedtech.items.firecake;
+package me.pranavverma.advancedtech.items.items.firecake;
 
 import io.github.thebusybiscuit.slimefun4.api.events.PlayerRightClickEvent;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;

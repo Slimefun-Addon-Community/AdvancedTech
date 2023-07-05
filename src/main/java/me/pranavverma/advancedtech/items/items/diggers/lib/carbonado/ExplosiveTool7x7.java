@@ -1,7 +1,22 @@
-package me.pranavverma.advancedtech.items.diggers.lib.advanced;
+package me.pranavverma.advancedtech.items.items.diggers.lib.carbonado;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Effect;
+import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockExplodeEvent;
+import org.bukkit.inventory.ItemStack;
 
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
-import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemSetting;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
@@ -13,32 +28,26 @@ import io.github.thebusybiscuit.slimefun4.core.handlers.ToolUseHandler;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.implementation.items.SimpleSlimefunItem;
 import io.github.thebusybiscuit.slimefun4.utils.tags.SlimefunTag;
+import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
+
+
+
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
-import org.bukkit.Bukkit;
-import org.bukkit.Effect;
-import org.bukkit.Material;
-import org.bukkit.Sound;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
-import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockExplodeEvent;
-import org.bukkit.inventory.ItemStack;
+import me.pranavverma.advancedtech.items.items.diggers.lib.carbonado.ExplosiveToolBreakBlocksEvent7x7;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
-public class ExplosiveTool5x5 extends SimpleSlimefunItem<ToolUseHandler> implements NotPlaceable, DamageableItem {
+public class ExplosiveTool7x7 extends SimpleSlimefunItem<ToolUseHandler> implements NotPlaceable, DamageableItem {
 
     private final ItemSetting<Boolean> damageOnUse = new ItemSetting<>(this, "damage-on-use", true);
     private final ItemSetting<Boolean> callExplosionEvent = new ItemSetting<>(this, "call-explosion-event", false);
 
-    public ExplosiveTool5x5(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+    @ParametersAreNonnullByDefault
+    public ExplosiveTool7x7(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
 
         addItemSetting(damageOnUse, callExplosionEvent);
     }
 
+    @Nonnull
     @Override
     public ToolUseHandler getItemHandler() {
         return (e, tool, fortune, drops) -> {
@@ -56,10 +65,11 @@ public class ExplosiveTool5x5 extends SimpleSlimefunItem<ToolUseHandler> impleme
         };
     }
 
+    @ParametersAreNonnullByDefault
     private void breakBlocks(BlockBreakEvent e, Player p, ItemStack item, Block b, List<Block> blocks, List<ItemStack> drops) {
         List<Block> blocksToDestroy = new ArrayList<>();
 
-        if (callExplosionEvent.getValue()) {
+        if (callExplosionEvent.getValue().booleanValue()) {
             BlockExplodeEvent blockExplodeEvent = new BlockExplodeEvent(b, blocks, 0);
             Bukkit.getServer().getPluginManager().callEvent(blockExplodeEvent);
 
@@ -78,7 +88,7 @@ public class ExplosiveTool5x5 extends SimpleSlimefunItem<ToolUseHandler> impleme
             }
         }
 
-        ExplosiveToolBreakBlocksEvent5x5 event = new ExplosiveToolBreakBlocksEvent5x5(p, b, blocksToDestroy, item, this);
+        ExplosiveToolBreakBlocksEvent7x7 event = new ExplosiveToolBreakBlocksEvent7x7(p, b, blocksToDestroy, item, this);
         Bukkit.getServer().getPluginManager().callEvent(event);
 
         if (!event.isCancelled()) {
@@ -88,18 +98,20 @@ public class ExplosiveTool5x5 extends SimpleSlimefunItem<ToolUseHandler> impleme
         }
     }
 
-    private List<Block> findBlocks(Block b) {
-        List<Block> blocks = new ArrayList<>(121);
+    @Nonnull
+    private List<Block> findBlocks(@Nonnull Block b) {
+        List<Block> blocks = new ArrayList<>(49);
 
-        for (int x = -2; x <= 2; x++) {
-            for (int y = -2; y <= 2; y++) {
-                for (int z = -2; z <= 2; z++) {
-                    // We can skip the center block since that will break as usual
-                    if (x == 0 && y == 0 && z == 0) {
-                        continue;
-                    }
+        int radius = 3;
+        int centerX = b.getX();
+        int centerY = b.getY();
+        int centerZ = b.getZ();
 
-                    blocks.add(b.getRelative(x, y, z));
+        for (int x = centerX - radius; x <= centerX + radius; x++) {
+            for (int y = centerY - radius; y <= centerY + radius; y++) {
+                for (int z = centerZ - radius; z <= centerZ + radius; z++) {
+                    Block block = b.getWorld().getBlockAt(x, y, z);
+                    blocks.add(block);
                 }
             }
         }
@@ -112,7 +124,7 @@ public class ExplosiveTool5x5 extends SimpleSlimefunItem<ToolUseHandler> impleme
         return damageOnUse.getValue();
     }
 
-    private boolean canBreak(Player p, Block b) {
+    protected boolean canBreak(@Nonnull Player p, @Nonnull Block b) {
         if (b.isEmpty() || b.isLiquid()) {
             return false;
         } else if (SlimefunTag.UNBREAKABLE_MATERIALS.isTagged(b.getType())) {
@@ -126,6 +138,7 @@ public class ExplosiveTool5x5 extends SimpleSlimefunItem<ToolUseHandler> impleme
         }
     }
 
+    @ParametersAreNonnullByDefault
     private void breakBlock(BlockBreakEvent e, Player p, ItemStack item, Block b, List<ItemStack> drops) {
         Slimefun.getProtectionManager().logAction(p, b, Interaction.BREAK_BLOCK);
         Material material = b.getType();
@@ -148,4 +161,5 @@ public class ExplosiveTool5x5 extends SimpleSlimefunItem<ToolUseHandler> impleme
 
         damageItem(p, item);
     }
+
 }

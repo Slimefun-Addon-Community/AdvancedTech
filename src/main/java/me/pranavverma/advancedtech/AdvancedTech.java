@@ -13,10 +13,10 @@ import io.github.thebusybiscuit.slimefun4.libraries.dough.skins.PlayerHead;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.skins.PlayerSkin;
 import io.github.thebusybiscuit.slimefun4.libraries.paperlib.PaperLib;
 import me.pranavverma.advancedtech.items.BaseItems;
-import me.pranavverma.advancedtech.items.diggers.handheld_digger_1;
-import me.pranavverma.advancedtech.items.diggers.handheld_digger_2;
-import me.pranavverma.advancedtech.items.diggers.handheld_digger_3;
-import me.pranavverma.advancedtech.items.firecake.FireCake;
+import me.pranavverma.advancedtech.items.items.diggers.handheld_digger_1;
+import me.pranavverma.advancedtech.items.items.diggers.handheld_digger_2;
+import me.pranavverma.advancedtech.items.items.diggers.handheld_digger_3;
+import me.pranavverma.advancedtech.items.items.firecake.FireCake;
 import me.pranavverma.advancedtech.items.resources.boosted_carbonado.boosted_carbonado;
 import me.pranavverma.advancedtech.items.resources.commanders.command_engine.command_engine;
 import me.pranavverma.advancedtech.items.resources.commanders.command_hub.command_hub;
@@ -112,6 +112,8 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
             boosted_carbonado.register(this);
             framed_uranium.register(this);
         }
+
+        
 
         ItemStack[] command_hub_recipe = { framed_uranium.getItem(), SlimefunItems.ANDROID_MEMORY_CORE, boosted_carbonado.getItem(), SlimefunItems.LARGE_CAPACITOR, SlimefunItems.POWER_CRYSTAL, SlimefunItems.NUCLEAR_REACTOR, boosted_carbonado.getItem(), SlimefunItems.ENERGY_CONNECTOR, framed_uranium.getItem() };
 

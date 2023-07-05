@@ -1,14 +1,14 @@
-package me.pranavverma.advancedtech.items.diggers;
+package me.pranavverma.advancedtech.items.items.diggers;
 
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import me.pranavverma.advancedtech.items.diggers.lib.basic.ExplosiveTool4x4;
 import org.bukkit.inventory.ItemStack;
 
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import me.pranavverma.advancedtech.items.items.diggers.lib.basic.ExplosiveTool4x4;
 
 
 public class handheld_digger_1 extends ExplosiveTool4x4 {

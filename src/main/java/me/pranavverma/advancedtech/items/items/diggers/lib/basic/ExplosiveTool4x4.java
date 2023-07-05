@@ -1,4 +1,4 @@
-package me.pranavverma.advancedtech.items.diggers.lib.basic;
+package me.pranavverma.advancedtech.items.items.diggers.lib.basic;
 
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;

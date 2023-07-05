@@ -1,9 +1,8 @@
-package me.pranavverma.advancedtech.items.diggers;
+package me.pranavverma.advancedtech.items.items.diggers;
 
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import me.pranavverma.advancedtech.items.diggers.lib.advanced.ExplosiveTool5x5;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,6 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import me.pranavverma.advancedtech.items.items.diggers.lib.advanced.ExplosiveTool5x5;
 
 
 public class handheld_digger_2 extends ExplosiveTool5x5{

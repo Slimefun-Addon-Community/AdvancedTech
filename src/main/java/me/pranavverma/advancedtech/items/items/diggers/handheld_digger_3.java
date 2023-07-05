@@ -1,9 +1,10 @@
-package me.pranavverma.advancedtech.items.diggers;
+package me.pranavverma.advancedtech.items.items.diggers;
 
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import me.pranavverma.advancedtech.items.diggers.lib.carbonado.ExplosiveTool7x7;
+import me.pranavverma.advancedtech.items.items.diggers.lib.carbonado.ExplosiveTool7x7;
+
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

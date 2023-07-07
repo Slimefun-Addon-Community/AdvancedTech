@@ -14,11 +14,11 @@ Addon Can Be Downloaded from [Modrinth](https://modrinth.com/plugin/advancedtech
 
 | Minecraft Version  | Slimefun Version | Supported          |
 |--------------------|------------------|--------------------|
-| 1.19.4             | DEV 1061         | :white_check_mark: |
-| 1.19.3             | DEV 1061         | Untested           |
-| 1.19.2             | DEV 1061         | Untested           |
-| 1.19.1             | DEV 1061         | Untested           |
-| 1.19               | DEV 1061         | Untested           |
+| 1.19.4             | DEV 1063         | :white_check_mark: |
+| 1.19.3             | DEV 1063         | Untested           |
+| 1.19.2             | DEV 1063         | Untested           |
+| 1.19.1             | DEV 1063         | Untested           |
+| 1.19               | DEV 1063         | Untested           |
 | Any Older Versions | -                | Not Supported      |
 
 Any Older Versions Than 1.19 might work, but, we will not provide any support for them yet.

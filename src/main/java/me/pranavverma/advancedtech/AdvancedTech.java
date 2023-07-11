@@ -1,6 +1,21 @@
 /* mvn clean package */
 package me.pranavverma.advancedtech;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
+import java.util.logging.Logger;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+
 import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
@@ -28,9 +43,14 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.net.HttpURLConnection;
+import java.net.URISyntaxException;
+import java.security.CodeSource;
+
 import java.util.logging.Level;
 
 import static io.github.thebusybiscuit.slimefun4.core.debug.Debug.log;
+
 public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
 
     public boolean enable_plugin = true;
@@ -40,6 +60,60 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
     public static boolean TestingMode() {
         return false;
     }
+
+    private static final String REPOSITORY_URL = "https://api.github.com/repos/PranavVerma-droid/AdvancedTech/releases/latest";
+    private static final String CURRENT_VERSION = "1.0.0";
+    private PluginUpdater pluginUpdater;
+
+    public class PluginUpdater {
+
+    private final JavaPlugin plugin;
+    private final String repositoryUrl;
+    private final String currentVersion;
+
+    public PluginUpdater(JavaPlugin plugin, String repositoryUrl, String currentVersion) {
+        this.plugin = plugin;
+        this.repositoryUrl = repositoryUrl;
+        this.currentVersion = currentVersion;
+    }
+
+    public void checkForUpdates() {
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+            try {
+                URL url = new URL(repositoryUrl);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.setConnectTimeout(5000);
+                connection.setReadTimeout(5000);
+
+                int responseCode = connection.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    String response = reader.readLine();
+                    reader.close();
+
+                    JSONObject jsonObject = new JSONObject(response);
+                    String latestVersion = jsonObject.getString("version");
+
+                    if (!currentVersion.equals(latestVersion)) {
+                        Bukkit.getLogger().info("A new version (" + latestVersion + ") of the plugin is available!");
+                        Bukkit.getLogger().info("Please update it from: " + jsonObject.getString("download_url"));
+                    } else {
+                        Bukkit.getLogger().info("The plugin is up to date.");
+                    }
+                } else {
+                    Bukkit.getLogger().warning("Failed to check for plugin updates. Response Code: " + responseCode);
+                }
+
+                connection.disconnect();
+            } catch (IOException e) {
+                Bukkit.getLogger().warning("An error occurred while checking for updates: " + e.getMessage());
+            }
+        });
+    }
+}
+
+
 
 
     @Override
@@ -85,11 +159,14 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
             enable_firecake = false;
         }
 
-        if (config_plugin.getBoolean("plugin.enable-plugin")) {
-            enable_plugin = true;
+        if (config_plugin.getBoolean("plugin.auto-update")) {
+            pluginUpdater = new PluginUpdater(this, REPOSITORY_URL, CURRENT_VERSION);
+            pluginUpdater.checkForUpdates();
         } else {
-            enable_plugin = false;
+            /* False Goes Here */
         }
+
+
 
 
         //Make a Category

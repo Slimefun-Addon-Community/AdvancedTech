@@ -1,7 +1,7 @@
 # Advanced Tech (WIP)
 ![AdvancedTech](Images/Logo/logo.gif)  
 
-Introducing AdvancedTech, an immersive add-on for the popular Minecraft plugin Slimefun. This Addon Brings Exciting New Things Like Handheld Diggers, 
+Introducing AdvancedTech, an immersive add-on for the popular Minecraft plugin Slimefun. This Addon Brings Exciting New Things Like Handheld Diggers, and, New Solar Panels!
 
 ## Dependencies
 This Addon Needs the Slimefun4 Plugin.

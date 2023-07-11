@@ -14,6 +14,8 @@ Addon Can Be Downloaded from [Modrinth](https://modrinth.com/plugin/advancedtech
 
 | Minecraft Version  | Slimefun Version | Supported          |
 |--------------------|------------------|--------------------|
+| 1.20.1             | DEV 1083         | :white_check_mark: |
+| 1.20               | DEV 1083         | :white_check_mark: |
 | 1.19.4             | DEV 1083         | :white_check_mark: |
 | 1.19.3             | DEV 1083         | Untested           |
 | 1.19.2             | DEV 1083         | Untested           |

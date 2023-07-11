@@ -7,13 +7,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.nio.channels.Channels;
-import java.nio.channels.ReadableByteChannel;
-import java.util.logging.Logger;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+
 
 
 import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
@@ -44,8 +39,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.net.HttpURLConnection;
-import java.net.URISyntaxException;
-import java.security.CodeSource;
 
 import org.bukkit.plugin.PluginDescriptionFile;
 
@@ -67,65 +60,6 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
 
 
 
-    private static final String MASTER_URL = "https://api.github.com/repos/PranavVerma-droid/AdvancedTech/releases";
-    private String currentVersion;
-    private PluginUpdater pluginUpdater;
-
-    @Override
-    public void onLoad() {
-        // Retrieve the version from the plugin description
-        PluginDescriptionFile pluginDescription = getDescription();
-        currentVersion = pluginDescription.getVersion();
-    }
-
-
-    public class PluginUpdater {
-
-    private final JavaPlugin plugin;
-    private final String repositoryUrl;
-    private final String currentVersion;
-
-    public PluginUpdater(JavaPlugin plugin, String repositoryUrl, String currentVersion) {
-        this.plugin = plugin;
-        this.repositoryUrl = repositoryUrl;
-        this.currentVersion = currentVersion;
-    }
-
-    public void checkForUpdates() {
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
-            try {
-                URL url = new URL(repositoryUrl);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
-                connection.setConnectTimeout(5000);
-                connection.setReadTimeout(5000);
-
-                int responseCode = connection.getResponseCode();
-                if (responseCode == HttpURLConnection.HTTP_OK) {
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                    String response = reader.readLine();
-                    reader.close();
-
-                    JSONObject jsonObject = new JSONObject(response);
-                    String latestVersion = jsonObject.getString("version");
-
-                    if (!currentVersion.equals(latestVersion)) {
-                        Bukkit.getLogger().info("A new version (" + latestVersion + ") of the plugin is available!");
-                        Bukkit.getLogger().info("Please update it from: " + jsonObject.getString("download_url"));
-                    } else {
-                        Bukkit.getLogger().info("The plugin is up to date.");
-                    }
-                } else {
-                    Bukkit.getLogger().warning("Failed to check for plugin updates. Response Code: " + responseCode);
-                }
-
-                connection.disconnect();
-            } catch (IOException e) {
-                Bukkit.getLogger().warning("An error occurred while checking for updates: " + e.getMessage());
-            }
-        });
-    }
-}
 
 
 
@@ -174,10 +108,9 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
         }
 
         if (config_plugin.getBoolean("plugin.auto-update")) {
-            pluginUpdater = new PluginUpdater(this, MASTER_URL, currentVersion);
-            pluginUpdater.checkForUpdates();
+            /* Update Code */
         } else {
-                
+
         }
 
 

@@ -61,9 +61,6 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
         return false;
     }
 
-    private static final String REPOSITORY_URL = "https://api.github.com/repos/PranavVerma-droid/AdvancedTech/releases/latest";
-    private static final String CURRENT_VERSION = "1.0.0";
-    private PluginUpdater pluginUpdater;
 
     public class PluginUpdater {
 
@@ -160,8 +157,6 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
         }
 
         if (config_plugin.getBoolean("plugin.auto-update")) {
-            pluginUpdater = new PluginUpdater(this, REPOSITORY_URL, CURRENT_VERSION);
-            pluginUpdater.checkForUpdates();
         } else {
             /* False Goes Here */
         }

@@ -8,7 +8,7 @@ This Addon Needs the Slimefun4 Plugin.
 Download it [Here](https://thebusybiscuit.github.io/builds/TheBusyBiscuit/Slimefun4/master/)
 
 ## Downloads
-Addon Can Be Downloaded from [Modrinth](https://modrinth.com/plugin/advancedtech-slimefun) and from [Github Releases](https://github.com/PranavVerma-droid/AdvancedTech/releases)
+Addon Can Be Downloaded from [Modrinth](https://modrinth.com/plugin/advancedtech-slimefun).
 
 ## Versions & Support
 

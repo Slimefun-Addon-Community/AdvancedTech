@@ -147,6 +147,7 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
         ItemStack[] command_engine_recipe = { framed_uranium.getItem(), SlimefunItems.BATTERY, framed_uranium.getItem(), SlimefunItems.ENERGY_CONNECTOR, SlimefunItems.POWER_CRYSTAL, SlimefunItems.ELECTRIC_MOTOR, framed_uranium.getItem(), boosted_carbonado.getItem(), framed_uranium.getItem() };
         command_engine command_engine = new command_engine(advanced_tech_category, BaseItems.command_engine_, RecipeType.ENHANCED_CRAFTING_TABLE, command_engine_recipe);
 
+
         if (enable_plugin) {
             command_engine.register(this);
             command_hub.register(this);

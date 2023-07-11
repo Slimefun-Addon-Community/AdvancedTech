@@ -128,7 +128,7 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
 
 
         ItemStack[] boosted_carbonado_recipe = { SlimefunItems.CARBONADO, SlimefunItems.CARBONADO, null, SlimefunItems.CARBONADO, SlimefunItems.CARBONADO, null, null, null, null };
-        boosted_carbonado boosted_carbonado = new boosted_carbonado(advanced_tech_category, BaseItems.boosted_carbonado_, RecipeType.PRESSURE_CHAMBER, boosted_carbonado_recipe);
+        boosted_carbonado boosted_carbonado = new boosted_carbonado(advanced_tech_category, BaseItems.boosted_carbonado_, RecipeType.ENHANCED_CRAFTING_TABLE, boosted_carbonado_recipe);
 
         ItemStack[] framed_uranium_recipe = { SlimefunItems.CARBONADO, SlimefunItems.URANIUM, SlimefunItems.CARBONADO, SlimefunItems.URANIUM, SlimefunItems.BOOSTED_URANIUM, SlimefunItems.URANIUM, SlimefunItems.CARBONADO, SlimefunItems.URANIUM, SlimefunItems.CARBONADO };
         framed_uranium framed_uranium = new framed_uranium(advanced_tech_category, BaseItems.framed_uranium_, RecipeType.ENHANCED_CRAFTING_TABLE, framed_uranium_recipe);

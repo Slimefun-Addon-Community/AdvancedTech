@@ -139,8 +139,8 @@ public class command_hub extends SlimefunItem implements HologramOwner {
         startItem = setUnmovable(startItem);
         stopItem = setUnmovable(stopItem);
 
-        gui.setItem(3, startItem);
-        gui.setItem(5, stopItem);
+        // gui.setItem(3, startItem);
+        // gui.setItem(5, stopItem);
 
         player.openInventory(gui);
     }

@@ -47,6 +47,8 @@ import java.net.HttpURLConnection;
 import java.net.URISyntaxException;
 import java.security.CodeSource;
 
+import org.bukkit.plugin.PluginDescriptionFile;
+
 import java.util.logging.Level;
 
 import static io.github.thebusybiscuit.slimefun4.core.debug.Debug.log;
@@ -57,10 +59,23 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
     private boolean version_control = true;
     private boolean enable_diggers = true;
     private boolean enable_firecake = true;
-    
+
     public static boolean TestingMode() {
         return false;
 
+    }
+
+
+
+    private static final String MASTER_URL = "https://api.github.com/repos/PranavVerma-droid/AdvancedTech/releases";
+    private String currentVersion;
+    private PluginUpdater pluginUpdater;
+
+    @Override
+    public void onLoad() {
+        // Retrieve the version from the plugin description
+        PluginDescriptionFile pluginDescription = getDescription();
+        currentVersion = pluginDescription.getVersion();
     }
 
 
@@ -159,8 +174,10 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
         }
 
         if (config_plugin.getBoolean("plugin.auto-update")) {
+            pluginUpdater = new PluginUpdater(this, MASTER_URL, currentVersion);
+            pluginUpdater.checkForUpdates();
         } else {
-            /* False Goes Here */
+                
         }
 
 

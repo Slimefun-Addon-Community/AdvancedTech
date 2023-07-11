@@ -1,3 +1,4 @@
+/* mvn clean package */
 package me.pranavverma.advancedtech;
 
 import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
@@ -49,8 +50,8 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
         if (version_control) {
             if (!PaperLib.isPaper()) {
                 log(String.valueOf(Level.SEVERE), "Advanced Tech only supports Paper and its forks (i.e. Airplane and Purpur)");
-                log(String.valueOf(Level.SEVERE), "Please use Paper or a fork of Paper");
-                shouldDisable = true;
+                log(String.valueOf(Level.SEVERE), "These Versions are NOT Supported!");
+                shouldDisable = false;
             }
             if (Slimefun.getMinecraftVersion().isBefore(MinecraftVersion.MINECRAFT_1_19)) {
                 log(String.valueOf(Level.SEVERE), "Advanced Tech is only supported on Minecraft 1.19 and above");
@@ -159,6 +160,11 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
         Research diggerResearch = new Research(diggerKey, 12839710, "Advanced Tech", 65);
         diggerResearch.addItems(basic_handheld_power_digger, advanced_handheld_power_digger, carbonado_handheld_power_digger);
         diggerResearch.register();
+
+        NamespacedKey resourcesKey = new NamespacedKey(this, "advanced_tech_resources");
+        Research resourcesResearch = new Research(resourcesKey, 12839711, "Advanced Tech", 36);
+        resourcesResearch.addItems(boosted_carbonado, framed_uranium);
+        resourcesResearch.register();
 
     }
 

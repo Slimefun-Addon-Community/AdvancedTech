@@ -57,8 +57,10 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
     private boolean version_control = true;
     private boolean enable_diggers = true;
     private boolean enable_firecake = true;
+    
     public static boolean TestingMode() {
         return false;
+
     }
 
 

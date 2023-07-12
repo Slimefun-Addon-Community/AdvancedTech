@@ -7,9 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
-
-
-
+import java.text.MessageFormat;
 
 import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
@@ -22,6 +20,7 @@ import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.skins.PlayerHead;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.skins.PlayerSkin;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.GitHubBuildsUpdater;
 import io.github.thebusybiscuit.slimefun4.libraries.paperlib.PaperLib;
 import me.pranavverma.advancedtech.items.BaseItems;
 import me.pranavverma.advancedtech.items.items.diggers.handheld_digger_1;
@@ -46,7 +45,19 @@ import java.util.logging.Level;
 
 import static io.github.thebusybiscuit.slimefun4.core.debug.Debug.log;
 
+
+import org.bukkit.plugin.PluginManager;
+
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.text.MessageFormat;
+import java.util.HashMap;
+import java.util.Map;
+
 public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
+
+    private static AdvancedTech instance;
 
     public boolean enable_plugin = true;
     private boolean version_control = true;
@@ -63,11 +74,22 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
 
 
 
+    public AdvancedTech() {
+        this.username = "PranavVerma-droid";
+        this.repo = "AdvancedTech";
+        this.branch = "dev";
+    }
+
 
     @Override
     public void onEnable() {
+        instance = this;
+
 
         boolean shouldDisable = false;
+        
+
+        
 
         if (version_control) {
             if (!PaperLib.isPaper()) {
@@ -108,9 +130,7 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
         }
 
         if (config_plugin.getBoolean("plugin.auto-update")) {
-            /* Update Code */
-        } else {
-
+            tryUpdate();
         }
 
 
@@ -193,6 +213,16 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
 
     }
 
+    public void tryUpdate() {
+        if (getConfig().getBoolean("auto-update")
+            && getDescription().getVersion().startsWith("DEV")
+        ) {
+            String updateLocation = MessageFormat.format("{0}/{1}/{2}", this.username, this.repo, this.branch);
+            GitHubBuildsUpdater updater = new GitHubBuildsUpdater(this, getFile(), updateLocation);
+            updater.start();
+        }
+    }
+
 
     @Override
     public void onDisable() {
@@ -204,10 +234,17 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
         return "https://github.com/PranavVerma-droid/AdvancedTech/issues";
     }
 
+    @Nonnull
     @Override
     public JavaPlugin getJavaPlugin() {
         return this;
     }
+
+
+    public static AdvancedTech getInstance() {
+        return AdvancedTech.getInstance();
+    }
+
 
 
 

@@ -8,8 +8,9 @@ This Addon Needs the Slimefun4 Plugin.
 Download it [Here](https://thebusybiscuit.github.io/builds/TheBusyBiscuit/Slimefun4/master/)
 
 ## Downloads
-Addon Can Be Downloaded from [Modrinth](https://modrinth.com/plugin/advancedtech-slimefun) or [Github Releases](https://github.com/PranavVerma-droid/AdvancedTech/releases)
-
+Addon Can Be Downloaded from The Official Download Pages: <br>
+Download Stable: [Here](https://thebusybiscuit.github.io/builds/PranavVerma-droid/AdvancedTech/stable)
+Download Latest: [Here](https://thebusybiscuit.github.io/builds/PranavVerma-droid/AdvancedTech/dev)
 ## Versions & Support
 
 | Minecraft Version  | Slimefun Version | Supported          |

@@ -1,6 +1,8 @@
+updating:
+  auto-update: true
+  update-to-dev: true
 plugin:
   enable-plugin: true
-  auto-update: true
 items:
   enable-diggers: true
   enable-firecake: true

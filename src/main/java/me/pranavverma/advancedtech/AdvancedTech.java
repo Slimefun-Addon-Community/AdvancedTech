@@ -44,8 +44,8 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
 
     private final String username;
     private final String repo;
-    private final String branch;
-
+    private final String branchDev;
+    private final String branchStable;
 
     public boolean enable_plugin = true;
     private boolean version_control = true;
@@ -64,7 +64,8 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
     public AdvancedTech() {
         this.username = "PranavVerma-droid";
         this.repo = "AdvancedTech";
-        this.branch = "dev";
+        this.branchDev = "dev";
+        this.branchStable = "stable";
     }
 
 
@@ -116,8 +117,12 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
             enable_firecake = false;
         }
 
-        if (config_plugin.getBoolean("plugin.auto-update")) {
-            tryUpdate();
+        if (config_plugin.getBoolean("updating.auto-update")) {
+            if (config_plugin.getBoolean("updating.update-to-dev")) {
+                tryUpdateDev();
+            } else {
+                tryUpdateStable();
+            }
         }
 
 
@@ -127,10 +132,6 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
         ItemStack advanced_tech_define = new CustomItemStack(PlayerHead.getItemStack(PlayerSkin.fromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2I4NTg5ZTY3YTNhM2QxMmJmYzljOTgyMTBiMTAyYTM3MWQwNTIwNzk4YWU3MDBiMzYzMzVlOTlmNjkzMzc4ZCJ9fX0=")), "&4Advanced Tech", "The Most Advanced Tech in all of SF.", "&a> Click to open");
         NamespacedKey advanced_tech_id = new NamespacedKey(this, "advanced_tech");
         ItemGroup advanced_tech_category = new ItemGroup(advanced_tech_id, advanced_tech_define);
-
-
-
-
 
 
 
@@ -200,9 +201,17 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
 
     }
 
-    public void tryUpdate() {
+    public void tryUpdateDev() {
         if (getConfig().getBoolean("auto-update")) {
-            String updateLocation = MessageFormat.format("{0}/{1}/{2}", this.username, this.repo, this.branch);
+            String updateLocation = MessageFormat.format("{0}/{1}/{2}", this.username, this.repo, this.branchDev);
+            GitHubBuildsUpdater updater = new GitHubBuildsUpdater(this, getFile(), updateLocation);
+            updater.start();
+        }
+    }
+
+        public void tryUpdateStable() {
+        if (getConfig().getBoolean("auto-update")) {
+            String updateLocation = MessageFormat.format("{0}/{1}/{2}", this.username, this.repo, this.branchStable);
             GitHubBuildsUpdater updater = new GitHubBuildsUpdater(this, getFile(), updateLocation);
             updater.start();
         }

@@ -28,15 +28,20 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import me.pranavverma.advancedtech.managers.ListenerManager;
+// import me.pranavverma.advancedtech.managers.SupportedPluginManager;
+
+
+import javax.annotation.Nonnull;
 
 import java.util.logging.Level;
 
 import static io.github.thebusybiscuit.slimefun4.core.debug.Debug.log;
 
 
-import javax.annotation.Nonnull;
 
 public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
 
@@ -46,6 +51,8 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
     private final String repo;
     private final String branchDev;
     private final String branchStable;
+
+    private ListenerManager listenerManager;
 
     public boolean enable_plugin = true;
     private boolean version_control = true;
@@ -234,13 +241,21 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
         return this;
     }
 
+    @Nonnull
+    public static PluginManager getPluginManager() {
+        return AdvancedTech.getInstance().getServer().getPluginManager();
+    }
 
     public static AdvancedTech getInstance() {
-        return AdvancedTech.getInstance();
+        return AdvancedTech.instance;
+    }
+
+
+    public static ListenerManager getListenerManager() {
+        return AdvancedTech.getInstance().listenerManager;
+    }
+
     }
 
 
 
-
-
-}

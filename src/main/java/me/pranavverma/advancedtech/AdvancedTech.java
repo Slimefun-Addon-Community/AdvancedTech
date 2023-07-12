@@ -1,12 +1,5 @@
 /* mvn clean package */
 package me.pranavverma.advancedtech;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.text.MessageFormat;
 
 import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
@@ -37,27 +30,22 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.net.HttpURLConnection;
-
-import org.bukkit.plugin.PluginDescriptionFile;
 
 import java.util.logging.Level;
 
 import static io.github.thebusybiscuit.slimefun4.core.debug.Debug.log;
 
 
-import org.bukkit.plugin.PluginManager;
-
-
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.text.MessageFormat;
-import java.util.HashMap;
-import java.util.Map;
 
 public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
 
     private static AdvancedTech instance;
+
+    private final String username;
+    private final String repo;
+    private final String branch;
+
 
     public boolean enable_plugin = true;
     private boolean version_control = true;
@@ -66,7 +54,6 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
 
     public static boolean TestingMode() {
         return false;
-
     }
 
 
@@ -214,9 +201,7 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
     }
 
     public void tryUpdate() {
-        if (getConfig().getBoolean("auto-update")
-            && getDescription().getVersion().startsWith("DEV")
-        ) {
+        if (getConfig().getBoolean("auto-update")) {
             String updateLocation = MessageFormat.format("{0}/{1}/{2}", this.username, this.repo, this.branch);
             GitHubBuildsUpdater updater = new GitHubBuildsUpdater(this, getFile(), updateLocation);
             updater.start();

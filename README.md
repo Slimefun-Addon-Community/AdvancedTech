@@ -9,8 +9,10 @@ Download it [Here](https://thebusybiscuit.github.io/builds/TheBusyBiscuit/Slimef
 
 ## Downloads
 Addon Can Be Downloaded from The Official Download Pages: <br>
-Download Stable: [Here](https://thebusybiscuit.github.io/builds/PranavVerma-droid/AdvancedTech/stable)
+Download Stable: [Here](https://thebusybiscuit.github.io/builds/PranavVerma-droid/AdvancedTech/stable) <br>
 Download Latest: [Here](https://thebusybiscuit.github.io/builds/PranavVerma-droid/AdvancedTech/dev)
+
+You can Also Download The Latest STABLE Build from [Modrinth](https://modrinth.com/plugin/advancedtech-slimefun).
 ## Versions & Support
 
 | Minecraft Version  | Slimefun Version | Supported          |

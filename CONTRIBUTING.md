@@ -12,3 +12,7 @@ The [AdvancedTech](src/main/java/me/pranavverma/advancedtech/AdvancedTech.java) 
 To Compile the Plugin, run `mvn clean package` to compile the plugin. <br>
 The Compiled Plugin will be compiled to the `target/` Folder.
 
+There are two Branches to this Project: `dev` and `stable`.
+Dev Branch is the Latest (but Uncertain) Branch of the Project.
+Stable is the Verified Branch.
+

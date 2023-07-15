@@ -137,7 +137,7 @@ public class AdvancedTech extends JavaPlugin implements SlimefunAddon {
 
 
 
-        ItemStack[] advanced_solar_gen_recipe = {SlimefunItems.SOLAR_GENERATOR_3, SlimefunItems.SOLAR_GENERATOR_3, SlimefunItems.SOLAR_GENERATOR_3, null, boosted_carbonado.getItem(), null, null, SlimefunItems.POWER_CRYSTAL, null};
+        ItemStack[] advanced_solar_gen_recipe = {SlimefunItems.SOLAR_GENERATOR_2, SlimefunItems.SOLAR_GENERATOR_2, SlimefunItems.SOLAR_GENERATOR_2, null, boosted_carbonado.getItem(), null, null, SlimefunItems.POWER_CRYSTAL, null};
         AdvancedSolarGen advanced_solar_gen = new AdvancedSolarGen(advanced_tech_category, BaseItems.advanced_solar_gen, RecipeType.ENHANCED_CRAFTING_TABLE, advanced_solar_gen_recipe, BaseItems.advanced_solar_gen_power_day, BaseItems.advanced_solar_gen_power_night);
 
         advanced_solar_gen.register(this);

@@ -7,7 +7,7 @@ Install Java: https://www.oracle.com/java/technologies/javase/jdk17-archive-down
 Install Maven (Windows): https://phoenixnap.com/kb/install-maven-windows
 
 The Main Files of the Plugin are in the `src/main/java/me/pranavverma/advancedtech/` Folder. <br>
-The [AdvancedTech](src/main/java/me/pranavverma/advancedtech/AdvancedTech.java) Class is the Main Class of the Plugin. <br>
+The [AdvancedTech](https://github.com/PranavVerma-droid/AdvancedTech/blob/dev/src/main/java/me/pranavverma/advancedtech/AdvancedTech.java) Class is the Main Class of the Plugin. <br>
 
 To Compile the Plugin, run `mvn clean package` to compile the plugin. <br>
 The Compiled Plugin will be compiled to the `target/` Folder.

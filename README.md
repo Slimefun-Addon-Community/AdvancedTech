@@ -7,6 +7,7 @@ This Addon Revolves Around the Concept of a Command Hub, Where, You Will get Onl
 
 # Wiki
 The Official AdvancedTech Wiki: [Here](https://github.com/PranavVerma-droid/AdvancedTech/wiki)
+Official Creator: [PranavVerma-droid](https://github.com/PranavVerma-droid)
 # Dependencies
 This Addon Needs the Slimefun4 Plugin.
 Download it [Here](https://thebusybiscuit.github.io/builds/TheBusyBiscuit/Slimefun4/master/)

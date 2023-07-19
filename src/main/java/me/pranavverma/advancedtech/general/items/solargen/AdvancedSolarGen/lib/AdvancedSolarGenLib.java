@@ -4,6 +4,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.World.Environment;
 import org.bukkit.block.Block;
@@ -34,7 +35,8 @@ public class AdvancedSolarGenLib extends SlimefunItem implements EnergyNetProvid
     private final int dayEnergy;
     private final int nightEnergy;
     private final int capacity;
-    private boolean testing;
+
+    private boolean commandHubFound;
 
 
     @ParametersAreNonnullByDefault
@@ -43,6 +45,7 @@ public class AdvancedSolarGenLib extends SlimefunItem implements EnergyNetProvid
         this.dayEnergy = dayEnergy;
         this.nightEnergy = nightEnergy;
         this.capacity = capacity; 
+
         addItemSetting(useNightEnergyInOtherDimensions);
         addItemHandler(onPlace());
         addItemHandler(new BlockTicker() {
@@ -54,10 +57,10 @@ public class AdvancedSolarGenLib extends SlimefunItem implements EnergyNetProvid
             @Override
             public void tick(Block block, SlimefunItem slimefunItem, Config config) {
                 if (scanForCommandHub(block)) {
-                    testing = true;
+                    commandHubFound = true;
 
                 } else {
-                    testing = false;
+                    commandHubFound = false;
                 } 
             }
         });
@@ -71,33 +74,27 @@ public class AdvancedSolarGenLib extends SlimefunItem implements EnergyNetProvid
     }
 
     public int getDayEnergy() {
-        if (command_hub.AdvancedSolarGenFound && command_hub.readyToUse && testing) {
+        if (commandHubFound) {
             return dayEnergy;
-         } else if (command_hub.onCommandHubRemoval) {
-            return 0;
-        } else {
+         }  else {
             return 0;
         }
         
     }
 
     public int getNightEnergy() {
-        if (command_hub.AdvancedSolarGenFound && command_hub.readyToUse && testing) {
+        if (commandHubFound) {
             return nightEnergy;
-         } else if (command_hub.onCommandHubRemoval) {
-            return 0;
-        } else {
+         } else {
             return 0;
         }
     }
 
     @Override
     public int getCapacity() {
-        if (command_hub.AdvancedSolarGenFound && command_hub.readyToUse && testing) {
+        if (commandHubFound) {
             return capacity;
-         } else if (command_hub.onCommandHubRemoval) {
-            return 0;
-        } else {
+         } else {
             return 0;
         }
     }
@@ -162,9 +159,9 @@ public class AdvancedSolarGenLib extends SlimefunItem implements EnergyNetProvid
             @Override
             public void onPlayerPlace(@Nonnull BlockPlaceEvent e) {
                 if (scanForCommandHub(e.getBlock())) {
-                    testing = true;
+                    commandHubFound = true;
                 } else {
-                    testing = false;
+                    commandHubFound = false;
                 }
             }
 

@@ -12,11 +12,13 @@ import io.github.thebusybiscuit.slimefun4.core.handlers.BlockUseHandler;
 import io.github.thebusybiscuit.slimefun4.implementation.handlers.SimpleBlockBreakHandler;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.skins.PlayerHead;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.skins.PlayerSkin;
+import lombok.Getter;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.pranavverma.advancedtech.general.BaseItems;
 import me.pranavverma.advancedtech.general.items.solargen.AdvancedSolarGen.AdvancedSolarGen;
+import net.guizhanss.guizhanlib.slimefun.machines.TickingMenuBlock;
 import me.pranavverma.advancedtech.AdvancedTech;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -37,53 +39,39 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.event.Listener;
 import org.bukkit.event.Event.Result;
 import org.bukkit.plugin.java.JavaPlugin;
-
+import java.util.HashMap;
+import java.util.Map;
 import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
-import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.inventory.ItemStack;
+
 
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
-import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import io.github.thebusybiscuit.slimefun4.api.researches.Research;
-import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetComponent;
 import io.github.thebusybiscuit.slimefun4.core.handlers.BlockPlaceHandler;
-import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
-import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
-import io.github.thebusybiscuit.slimefun4.implementation.items.SimpleSlimefunItem;
-import io.github.thebusybiscuit.slimefun4.implementation.items.food.MeatJerky;
-import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
-import io.github.thebusybiscuit.slimefun4.utils.ChatUtils;
-import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
-import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
+import org.bukkit.Location;
+import org.bukkit.block.Block;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.inventory.ItemStack;
 
-import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
-import io.github.thebusybiscuit.slimefun4.utils.ChatUtils;
-import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
-import lombok.AccessLevel;
-import lombok.Setter;
-import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 
 public class command_hub extends SlimefunItem implements HologramOwner, Listener {
 
     public static boolean readyToUse = false;
-    public static boolean AdvancedSolarGenFound = false;
-    public static boolean onCommandHubRemoval = false;
+    //Done
+    private boolean AdvancedSolarGenFound = false;
+
+    protected static final Map<Location, Object> CACHES = new HashMap<>();
 
 
     public command_hub(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
+        
 
         addItemHandler(onBreak());
         addItemHandler(onPlace());
@@ -92,7 +80,7 @@ public class command_hub extends SlimefunItem implements HologramOwner, Listener
             public boolean isSynchronized() {
                 return true;
             }
-
+            
             @Override
             public void tick(Block block, SlimefunItem slimefunItem, Config config) {
                 if (scanForCommandEngine(block)) {
@@ -106,6 +94,8 @@ public class command_hub extends SlimefunItem implements HologramOwner, Listener
 
                 if (scanForAdvancedSolarGen(block)) {
                     AdvancedSolarGenFound = true;
+                    
+                    
                 } else {
                     AdvancedSolarGenFound = false;
                 } 
@@ -120,7 +110,6 @@ public class command_hub extends SlimefunItem implements HologramOwner, Listener
         addItemHandler(blockUseHandler);
         
     }
-
     
 
 
@@ -132,7 +121,6 @@ public class command_hub extends SlimefunItem implements HologramOwner, Listener
             @Override
             public void onBlockBreak(@Nonnull Block b) {
                 removeHologram(b);
-                onCommandHubRemoval = true;
             }
         };
     }
@@ -188,7 +176,6 @@ public class command_hub extends SlimefunItem implements HologramOwner, Listener
 
     @Nonnull
     private BlockPlaceHandler onPlace() {
-        onCommandHubRemoval = false;
 
         return new BlockPlaceHandler(true) {
             @Override
@@ -265,7 +252,24 @@ public class command_hub extends SlimefunItem implements HologramOwner, Listener
         HumanEntity human = event.getWhoClicked();
         Inventory inventory = event.getClickedInventory();
 
-        if (human instanceof Player && inventory != null && inventory.getSize() == 9 && inventory.getItem(0).hasItemMeta()) {
+        if (human instanceof Player && inventory != null && inventory.getSize() == 9 && inventory.getItem(0).hasItemMeta() && inventory.getItem(8).getType() == Material.BLACK_STAINED_GLASS && inventory.getItem(7).getType() == Material.BLACK_STAINED_GLASS && inventory.getItem(6).getType() == Material.BLACK_STAINED_GLASS) {
+            if (inventory.getItem(0) == null) {
+                
+            }
+
+            if (inventory.getItem(6) == null) {
+                
+            }
+            
+            if (inventory.getItem(7) == null) {
+                
+            }
+
+            if (inventory.getItem(8) == null) {
+                
+            }
+
+            
             event.setResult(Result.DENY); // Cancel the click event
             event.setCancelled(true);
 
@@ -279,7 +283,7 @@ public class command_hub extends SlimefunItem implements HologramOwner, Listener
         
         
 
-        if (human instanceof Player && inventory != null && inventory.getSize() == 9 && inventory.getItem(0).hasItemMeta()) {
+        if (human instanceof Player && inventory != null && inventory.getSize() == 9 && inventory.getItem(0).hasItemMeta() && inventory.getItem(8).getType() == Material.BLACK_STAINED_GLASS && inventory.getItem(7).getType() == Material.BLACK_STAINED_GLASS && inventory.getItem(6).getType() == Material.BLACK_STAINED_GLASS) {
             event.setCancelled(true); // Cancel the drag event
         }
     }
